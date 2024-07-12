@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccionar Especialidad - Reserva de Citas Médicas</title>
+    <link rel="stylesheet" href="Reserva_Cita.css">
+</head>
+<body>
+    <header class="encabezado">
+        <div class="topnav">
+            <span class="titulo">Reserva de Hora</span>
+        </div>
+        <h2>Seleccionar Especialidad</h2>
+    </header>
+    <a href="identificacion.html" class="back-link">&#8592; Volver a consultas</a>
+
+    <main>
+        <section class="seleccion">
+            <div class="opcion">
+                <h3>Consultas</h3>
+                <select id="consultas" name="consultas" required>
+                    <option value="">Seleccione un tipo de consulta</option>
+                    <option value="acupuntura">Acupuntura</option>
+                    <option value="alergia_e_inmunologia_adulto">Alergía e Inmunología Adulto</option>
+                    <option value="alergia_e_inmunologia_infantil">Alergía e Inmunología Infantil</option>
+                    <option value="andrologia">Andrología</option>
+                    <option value="anestesiologia">Anestesiología</option>
+                    <option value="broncopulmonar_adulto">Broncopulmonar Adulto</option>
+                    <option value="broncopulmonar_infantil">Broncopulmonar Infantil</option>
+                    <option value="cardiogenetica">Cardiogenética</option>
+                    <option value="cardiologia_adulto">Cardiología Adulto</option>
+                    <option value="cardiologia_infantil">Cardiología Infantil</option>
+                    <option value="cirugia_manguito_rotador">Cirugía Manguito Rotador</option>
+                    <option value="cirugia_maxilofacial">Cirugía Maxilofacial</option>
+                    <option value="cirugia_oncologica">Cirugía Oncológica</option>
+                    <option value="cirugia_plastica_reconstructiva_adulto">Cirugía Plástica y Reconstructiva Adulto</option>
+                    <option value="cirugia_vascular">Cirugía Vascular</option>
+                    <option value="control_nutriologia_bariatrica">Control Nutriología Bariátrica</option>
+                    <option value="control_post_operatorio">Control Post Operatorio</option>
+                    <option value="control_psicologia_bariatrica">Control Psicología Bariátrica</option>
+                    <option value="control_recien_nacido">Control Recién Nacido</option>
+                    <option value="cuidados_paliativos">Cuidados Paliativos</option>
+                    <option value="dermatologia">Dermatología</option>
+                    <option value="neurocirugia_adulto">Neurocirugía Adulto</option>
+                    <option value="neurocirugia_infantil">Neurocirugía Infantil</option>
+                    <option value="neurologia_adulto">Neurología Adulto</option>
+                    <option value="traumatologia_codo">Traumatología Codo</option>
+                    <option value="traumatologia_columna">Traumatología Columna</option>
+                    <option value="traumatologia_mano">Traumatología Mano</option>
+                    <option value="traumatologia_muñeca">Traumatología Muñeca</option>
+                    <option value="traumatologia_pie">Traumatología Pie</option>
+                    <option value="traumatologia_tobillo">Traumatología Tobillo</option>
+                </select>
+                <p id="error-consultas" class="error"></p>
+            </div>
+            <div class="opcion">
+                <h3>Región o Centro Médico</h3>
+                <select id="region" name="region" required>
+                    <option value="">Seleccione una región o centro médico</option>
+                    <option value="centro_medico_dental_redsalud_la_florida">Centro Médico y Dental RedSalud La Florida</option>
+                    <option value="centro_medico_dental_redsalud_maipu">Centro Médico y Dental RedSalud Maipú</option>
+                    <option value="centro_medico_y_dental_redsalud_pedro_de_valdivia">Centro Médico y Dental RedSalud Pedro de Valdivia</option>
+                    <option value="clinica_redsalud_iquique">Clínica RedSalud Iquique</option>
+                    <option value="clinica_redsalud_magallanes">Clínica RedSalud Magallanes</option>
+                    <option value="clinica_redsalud_providencia">Clínica RedSalud Providencia</option>
+                    <option value="clinica_redsalud_vitacura">Clínica RedSalud Vitacura</option>
+                    <option value="redsalud_los_angeles">RedSalud Los Ángeles</option>
+                    <option value="redsalud_punta_arenas">RedSalud Punta Arenas</option>
+                    <option value="redsalud_valparaiso">RedSalud Valparaíso</option>
+                </select>
+                <p id="error-region" class="error"></p>
+            </div>
+        </section>
+
+        <button onclick="validarYGuardar()">Buscar Horas</button>
+    </main>
+
+    <script>
+        function validarYGuardar() {
+            var consultas = document.getElementById('consultas').value;
+            var region = document.getElementById('region').value;
+            var errorConsultas = document.getElementById('error-consultas');
+            var errorRegion = document.getElementById('error-region');
+            var valido = true;
+
+            if (consultas === '') {
+                errorConsultas.innerText = 'Por favor seleccione un tipo de consulta.';
+                valido = false;
+            } else {
+                errorConsultas.innerText = '';
+            }
+
+            if (region === '') {
+                errorRegion.innerText = 'Por favor seleccione una región o centro médico.';
+                valido = false;
+            } else {
+                errorRegion.innerText = '';
+            }
+
+            if (valido) {
+                localStorage.setItem('consultaSeleccionada', consultas);
+                localStorage.setItem('regionSeleccionada', region);
+                console.log("Consulta seleccionada:", consultas);
+                console.log("Región seleccionada:", region);
+                window.location.href = "horario.html"; 
+            } else {
+                alert("Por favor complete todos los campos.");
+            }
+        }
+    </script>
+</body>
+</html>

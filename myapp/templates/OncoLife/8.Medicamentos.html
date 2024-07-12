@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido de Medicamentos Oncológicos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f3f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        h2 {
+            color: #008cba;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: calc(100% - 20px);
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .autocomplete-suggestions {
+            border: 1px solid #ccc;
+            max-height: 150px;
+            overflow-y: auto;
+            background-color: white;
+            position: absolute;
+            width: calc(100% - 22px);
+            z-index: 1000;
+        }
+
+        .autocomplete-suggestion {
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .autocomplete-suggestion:hover {
+            background-color: #ddd;
+        }
+
+        input[type="submit"] {
+            background-color: #008cba;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #005f6b;
+        }
+
+        .back-link {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .back-link a {
+            text-decoration: none;
+            color: #008cba;
+            display: flex;
+            align-items: center;
+        }
+
+        .back-link a i {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="back-link">
+            <a href="index.html"><i class="fas fa-arrow-left"></i>Volver a Inicio</a>
+        </div>
+        <h2>Pedido de Medicamentos Oncológicos</h2>
+        <form id="pedido-form" action="pagomed.html" method="get">
+            <label for="medicamento">Nombre del Medicamento:</label>
+            <input type="text" id="medicamento" name="medicamento" required autocomplete="off">
+            <div id="autocomplete-list" class="autocomplete-suggestions"></div>
+            <label for="cantidad">Cantidad:</label>
+            <input type="number" id="cantidad" min="1" required>
+            <input type="submit" value="Pedir">
+        </form>
+    </div>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script>
+        const medicamentos = [
+            { nombre: "Paclitaxel", precio: 5000 },
+            { nombre: "Trastuzumab", precio: 8000 },
+            { nombre: "Cisplatino", precio: 3000 },
+            { nombre: "Doxorrubicina", precio: 7000 },
+            { nombre: "Etopósido", precio: 6000 },
+            { nombre: "Gemcitabina", precio: 5500 },
+            { nombre: "Bevacizumab", precio: 9000 },
+            { nombre: "Capecitabina", precio: 7500 },
+            { nombre: "Carboplatino", precio: 4000 },
+            { nombre: "Cyclophosphamide", precio: 3500 },
+            { nombre: "Docetaxel", precio: 6000 },
+            { nombre: "Erlotinib", precio: 8500 },
+            { nombre: "Fluorouracil", precio: 4500 },
+            { nombre: "Irinotecan", precio: 6800 },
+            { nombre: "Methotrexate", precio: 5200 },
+            { nombre: "Oxaliplatino", precio: 6500 },
+            { nombre: "Pemetrexed", precio: 7000 },
+            { nombre: "Sorafenib", precio: 9500 },
+            { nombre: "Sunitinib", precio: 10000 },
+            { nombre: "Temozolomida", precio: 7200 },
+        ];
+
+        const pedidoForm = document.getElementById('pedido-form');
+        const medicamentoInput = document.getElementById('medicamento');
+        const autocompleteList = document.getElementById('autocomplete-list');
+
+        medicamentoInput.addEventListener('input', function() {
+            const value = this.value.toLowerCase();
+            autocompleteList.innerHTML = '';
+            if (!value) {
+                return;
+            }
+
+            const filteredMedicamentos = medicamentos.filter(medicamento => medicamento.nombre.toLowerCase().startsWith(value));
+
+            filteredMedicamentos.forEach(medicamento => {
+                const suggestion = document.createElement('div');
+                suggestion.classList.add('autocomplete-suggestion');
+                suggestion.textContent = medicamento.nombre;
+                suggestion.addEventListener('click', function() {
+                    medicamentoInput.value = medicamento.nombre;
+                    autocompleteList.innerHTML = '';
+                });
+                autocompleteList.appendChild(suggestion);
+            });
+        });
+
+        medicamentoInput.addEventListener('focus', function() {
+            if (autocompleteList.innerHTML === '') {
+                medicamentos.forEach(medicamento => {
+                    const suggestion = document.createElement('div');
+                    suggestion.classList.add('autocomplete-suggestion');
+                    suggestion.textContent = medicamento.nombre;
+                    suggestion.addEventListener('click', function() {
+                        medicamentoInput.value = medicamento.nombre;
+                        autocompleteList.innerHTML = '';
+                    });
+                    autocompleteList.appendChild(suggestion);
+                });
+            }
+        });
+
+        pedidoForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const medicamento = document.getElementById('medicamento').value;
+            const cantidad = parseInt(document.getElementById('cantidad').value);
+            const medicamentoData = medicamentos.find(item => item.nombre.toLowerCase() === medicamento.toLowerCase());
+
+            if (medicamentoData) {
+                const precio = medicamentoData.precio;
+                window.location.href = `pagomed.html?medicamento=${encodeURIComponent(medicamento)}&cantidad=${cantidad}&precio=${precio}`;
+            } else {
+                alert('El medicamento ingresado no se encontró en la base de datos.');
+            }
+        });
+    </script>
+</body>
+</html>

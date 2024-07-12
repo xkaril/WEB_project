@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Iniciar Sesión</a>
+    </header>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h2 class="mb-4 text-center">Iniciar Sesión</h2>
+                <form id="loginForm" onsubmit="return validarInicioSesion()">
+                    <div class="form-group">
+                        <label for="identifier">Correo Electrónico o Nombre de Usuario</label>
+                        <input type="text" class="form-control" id="identifier" placeholder="Ingrese su correo electrónico o nombre de usuario" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block" id="loginButton" disabled>Iniciar Sesión</button>
+                </form>
+                <p class="mt-3 text-center">¿No tienes una cuenta? <a href="nuevo_usuario.html">Crear cuenta</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('identifier').addEventListener('input', validarCampos);
+        document.getElementById('password').addEventListener('input', validarCampos);
+
+        function validarCampos() {
+            var identifier = document.getElementById('identifier').value;
+            var password = document.getElementById('password').value;
+            var boton = document.getElementById('loginButton');
+
+            boton.disabled = !(identifier.trim() !== '' && password.trim() !== '');
+        }
+
+        function validarInicioSesion() {
+            var identifier = document.getElementById('identifier').value;
+            var password = document.getElementById('password').value;
+
+            var storedUsername = localStorage.getItem('username');
+            var storedEmail = localStorage.getItem('userEmail');
+            var storedPassword = localStorage.getItem('userPassword');
+
+            if ((identifier === storedEmail || identifier === storedUsername) && password === storedPassword) {
+                localStorage.setItem('currentUserEmail', identifier === storedEmail ? storedEmail : storedEmail);
+                alert('Inicio de sesión exitoso');
+                window.location.href = 'index.html';
+                return false;
+            } else {
+                alert('Correo electrónico, nombre de usuario o contraseña incorrectos');
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>

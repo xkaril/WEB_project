@@ -1,0 +1,169 @@
+.topnav {
+    overflow: hidden;
+    background-color: #007bff;
+}
+
+.topnav a {
+    float: left;
+    color: #fff;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.topnav a:hover {
+    background-color: #0056b3;
+}
+
+.topnav a.active {
+    background-color: #0056b3;
+}
+
+.topnav a.right {
+    float: right;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    text-align: center;
+    padding: 20px 0;
+    color: #fff;
+    background-color: #007bff;
+}
+
+h1 {
+    margin: 0;
+}
+
+main {
+    padding: 20px;
+}
+
+footer {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.formulario {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.formulario h2 {
+    margin-bottom: 20px;
+}
+
+.formulario label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.formulario input[type="text"],
+.formulario input[type="email"],
+.formulario input[type="tel"],
+.formulario input[type="password"],
+.formulario input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.formulario input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.formulario input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.error {
+    color: red;
+}
+.volver-inicio {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.volver-inicio:hover {
+    text-decoration: underline;
+}
+.topnav {
+    overflow: hidden;
+    background-color: #007bff;
+    padding: 10px 0;
+}
+
+.topnav .titulo {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    display: block;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header.encabezado {
+    text-align: center;
+}
+
+main {
+    padding: 20px;
+}
+
+footer {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.servicios {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0px 0px; 
+    padding: 10px;
+    justify-content: center;
+}
+
+.servicio {
+    width: 80%;
+    height: auto;
+    text-align: center;
+}
+
+.servicio img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    max-height: 110px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.servicio img:hover {
+    transform: scale(1.1);
+}
+.back-link{
+    color: black;
+}

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago de Bonos de Salud</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        header a {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="Compra_de_Bonos.html">&#8592; Volver a la página de compra de bonos</a>
+        <h1>Pago de Bonos de Salud</h1>
+    </header>
+
+    <main>
+        <form id="paymentForm" onsubmit="return validarPago()">
+            <label for="nombre">Nombre en la Tarjeta:</label>
+            <input type="text" id="nombre" name="nombre" required>
+
+            <label for="numero">Número de Tarjeta:</label>
+            <input type="text" id="numero" name="numero" maxlength="16" required>
+
+            <label for="vencimiento">Fecha de Vencimiento:</label>
+            <input type="text" id="vencimiento" name="vencimiento" placeholder="MM/AA" required>
+
+            <label for="cvv">CVV:</label>
+            <input type="text" id="cvv" name="cvv" maxlength="3" required>
+
+            <button type="submit">Pagar</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>Para más información, contacte con nuestro servicio de atención al cliente.</p>
+        <p>Email: contacto@life.cl | Teléfono: +56 2 1234 5678</p>
+    </footer>
+
+    <script>
+        function validarPago() {
+            var nombre = document.getElementById('nombre').value.trim();
+            var numero = document.getElementById('numero').value.trim();
+            var vencimiento = document.getElementById('vencimiento').value.trim();
+            var cvv = document.getElementById('cvv').value.trim();
+
+            if (nombre === '' || numero === '' || vencimiento === '' || cvv === '') {
+                alert('Por favor complete todos los campos.');
+                return false;
+            }
+
+            if (isNaN(numero)) {
+                alert('Por favor ingrese un número de tarjeta válido.');
+                return false;
+            }
+
+            if (isNaN(cvv)) {
+                alert('Por favor ingrese un CVV válido.');
+                return false;
+            }
+
+            var vencimientoRegex = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/;
+            if (!vencimientoRegex.test(vencimiento)) {
+                alert('Por favor ingrese una fecha de vencimiento válida en formato MM/AA.');
+                return false;
+            }
+
+            alert('¡Pago realizado con éxito!');
+            return true;
+        }
+    </script>
+</body>
+</html>

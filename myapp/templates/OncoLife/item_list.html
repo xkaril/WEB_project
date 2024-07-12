@@ -1,0 +1,13 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h1>Items</h1>
+  <ul>
+    {% for item in items %}
+      <li>
+        <a href="{% url 'item_detail' pk=item.pk %}">{{ item.name }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'item_new' %}">Add new item</a>
+{% endblock %}

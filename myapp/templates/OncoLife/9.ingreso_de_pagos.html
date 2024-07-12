@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Pagos Médicos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .table-container {
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .download-links {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .download-links a {
+            margin-right: 10px;
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #007bff;
+            color: #007bff;
+            border-radius: 5px;
+        }
+
+        .download-links a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        footer {
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .back-arrow {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-arrow">&#8592; Volver al Inicio</a>
+    <header>
+        <h1>Sistema de Pagos Médicos</h1>
+    </header>
+
+    <main class="container">
+        <section id="bono-section">
+            <h2>Compras de Bonos</h2>
+            <div class="table-container" id="bono-table-container"></div>
+        </section>
+
+        <section id="medicamento-section">
+            <h2>Compras de Medicamentos</h2>
+            <div class="table-container" id="medicamento-table-container"></div>
+        </section>
+
+        <div class="download-links">
+            <a href="#" onclick="exportToPDF()">Exportar a PDF</a>
+            <a href="#" onclick="exportToExcel()">Exportar a Excel</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>Contacto: contacto@life.com | Teléfono: 123-456-7890</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
+    <script>
+        let bonoData = [
+            { tipo: "PAD", fecha: "2024-05-16 10:30:00", precio: 15000, montoTotal: 15000 },
+            { tipo: "Fonasa", fecha: "2024-05-15 14:45:00", precio: 10000, montoTotal: 10000 },
+            { tipo: "Isapre", fecha: "2024-05-14 09:20:00", precio: 20000, montoTotal: 20000 }
+        ];
+
+        let medicamentoData = [
+            { medicamento: "Paclitaxel", fecha: "2024-05-16 10:30:00", precio: 5000, cantidad: 2, montoTotal: 10000 },
+            { medicamento: "Trastuzumab", fecha: "2024-05-15 14:45:00", precio: 8000, cantidad: 3, montoTotal: 24000 },
+            { medicamento: "Cisplatino", fecha: "2024-05-14 09:20:00", precio: 3000, cantidad: 1, montoTotal: 3000 },
+            { medicamento: "Doxorrubicina", fecha: "2024-05-13 11:10:00", precio: 7000, cantidad: 2, montoTotal: 14000 },
+            { medicamento: "Etopósido", fecha: "2024-05-12 15:30:00", precio: 6000, cantidad: 1, montoTotal: 6000 }
+        ];
+
+        function mostrarCompras() {
+            mostrarComprasBono();
+            mostrarComprasMedicamento();
+        }
+
+        function mostrarComprasBono() {
+            const bonoTableContainer = document.getElementById('bono-table-container');
+            bonoTableContainer.innerHTML = '';
+            if (bonoData.length === 0) {
+                bonoTableContainer.innerHTML = '<p>No hay compras de bonos.</p>';
+                return;
+            }
+            const table = document.createElement('table');
+            const header = table.createTHead();
+            const headerRow = header.insertRow();
+            headerRow.innerHTML = '<th>Tipo</th><th>Fecha</th><th>Precio</th><th>Monto Total</th>';
+            const body = table.createTBody();
+            bonoData.forEach(compra => {
+                const row = body.insertRow();
+                row.innerHTML = `<td>${compra.tipo}</td><td>${compra.fecha}</td><td>$${(compra.precio/100).toFixed(2)}</td><td>$${(compra.montoTotal/100).toFixed(2)}</td>`;
+            });
+            bonoTableContainer.appendChild(table);
+        }
+
+        function mostrarComprasMedicamento() {
+            const medicamentoTableContainer = document.getElementById('medicamento-table-container');
+            medicamentoTableContainer.innerHTML = '';
+            if (medicamentoData.length === 0) {
+                medicamentoTableContainer.innerHTML = '<p>No hay compras de medicamentos.</p>';
+                return;
+            }
+            const table = document.createElement('table');
+            const header = table.createTHead();
+            const headerRow = header.insertRow();
+            headerRow.innerHTML = '<th>Medicamento</th><th>Fecha</th><th>Precio</th><th>Cantidad</th><th>Monto Total</th>';
+            const body = table.createTBody();
+            medicamentoData.forEach(compra => {
+                const row = body.insertRow();
+                row.innerHTML = `<td>${compra.medicamento}</td><td>${compra.fecha}</td><td>$${(compra.precio/100).toFixed(2)}</td><td>${compra.cantidad}</td><td>$${(compra.montoTotal/100).toFixed(2)}</td>`;
+            });
+            medicamentoTableContainer.appendChild(table);
+        }
+
+        function exportToPDF() {
+            const doc = new jsPDF();
+            doc.text("Compras de Bonos", 10, 10);
+            doc.autoTable({ html: '#bono-table-container table', startY: 20 });
+            doc.text("Compras de Medicamentos", 10, doc.autoTable.previous.finalY + 10);
+            doc.autoTable({ html: '#medicamento-table-container table', startY: doc.autoTable.previous.finalY + 20 });
+            doc.save("compras.pdf");
+        }
+
+        function exportToExcel() {
+            const workbook = new ExcelJS.Workbook();
+            const bonoSheet = workbook.addWorksheet('Compras de Bonos');
+            bonoSheet.columns = [
+                { header: 'Tipo', key: 'tipo' },
+                { header: 'Fecha', key: 'fecha' },
+                { header: 'Precio', key: 'precio' },
+                { header: 'Monto Total', key: 'montoTotal' }
+            ];
+            bonoData.forEach(compra => {
+                bonoSheet.addRow(compra);
+            });
+
+            const medicamentoSheet = workbook.addWorksheet('Compras de Medicamentos');
+            medicamentoSheet.columns = [
+                { header: 'Medicamento', key: 'medicamento' },
+                { header: 'Fecha', key: 'fecha' },
+                { header: 'Precio', key: 'precio' },
+                { header: 'Cantidad', key: 'cantidad' },
+                { header: 'Monto Total', key: 'montoTotal' }
+            ];
+            medicamentoData.forEach(compra => {
+                medicamentoSheet.addRow(compra);
+            });
+
+            workbook.xlsx.writeBuffer().then(buffer => {
+                const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'compras.xlsx';
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+        }
+
+        mostrarCompras();
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración de Privacidad</title>
+    <link rel="stylesheet" href="configuracion.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Configuración de Privacidad</h1>
+        <div class="option">
+            <label for="dataSharing">Compartir Datos:</label>
+            <select id="dataSharing">
+                <option value="yes">Sí</option>
+                <option value="no" selected>No</option>
+            </select>
+        </div>
+        <div class="option">
+            <label for="locationAccess">Acceso a Ubicación:</label>
+            <select id="locationAccess">
+                <option value="yes">Sí</option>
+                <option value="no" selected>No</option>
+            </select>
+        </div>
+        <button id="applyPrivacyBtn">Aplicar</button>
+    </div>
+
+    <script>
+        document.getElementById('applyPrivacyBtn').addEventListener('click', () => {
+            const dataSharing = document.getElementById('dataSharing').value;
+            const locationAccess = document.getElementById('locationAccess').value;
+            alert(`Configuraciones de privacidad aplicadas:\nCompartir Datos: ${dataSharing}\nAcceso a Ubicación: ${locationAccess}`);
+            window.close();
+        });
+    </script>
+</body>
+</html>

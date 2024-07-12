@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación de Pago</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f3f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        h2 {
+            color: #008cba;
+        }
+
+        .confirmation-message {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #dff0d8;
+            color: #3c763d;
+            border: 1px solid #d6e9c6;
+            border-radius: 5px;
+        }
+
+        .error-message {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f2dede;
+            color: #a94442;
+            border: 1px solid #ebccd1;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="back-link">
+            <a href="pagomed.html"><i class="fas fa-arrow-left"></i>Volver </a>
+        </div>
+        <h2>Confirmación de Pago</h2>
+        <div id="confirmation-message" class="confirmation-message" style="display: none;">
+            <p>¡Gracias por tu compra!</p>
+            <p>Tu pago ha sido confirmado.</p>
+        </div>
+        <div id="error-message" class="error-message" style="display: none;">
+            <p>Hubo un problema con tu pago.</p>
+            <p>Por favor, inténtalo de nuevo más tarde.</p>
+        </div>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const ccv = params.get('ccv');
+        const confirmationMessage = document.getElementById('confirmation-message');
+        const errorMessage = document.getElementById('error-message');
+
+        if (ccv === '325') {
+            confirmationMessage.style.display = 'block';
+        } else {
+            errorMessage.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
+
+

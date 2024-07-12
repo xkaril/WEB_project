@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Eliminar Cita</title>
+</head>
+<body>
+    <h2>Eliminar Cita</h2>
+    <p>¿Está seguro que desea eliminar la cita de {{ cita.paciente }} - {{ cita.fecha }} {{ cita.hora }}?</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Eliminar</button>
+    </form>
+    <a href="{% url 'citas' %}">Volver a Citas</a>
+</body>
+</html>

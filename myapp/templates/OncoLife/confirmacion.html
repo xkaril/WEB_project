@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación - Reserva de Citas Médicas</title>
+    <link rel="stylesheet" href="Reserva_Cita.css">
+    <style>
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 12px);
+            padding: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: -10px;
+        }
+
+        #confirmar {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #confirmar:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        #mensaje {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        footer a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="encabezado">
+        <div class="topnav">
+            <span class="titulo">Confirmación de Reserva</span>
+        </div>
+    </header>
+    <a href="Horario.html" class="back-link">&#8592; Volver a seleccionar el horario</a>
+
+    <main>
+        <form id="formulario">
+            <label for="telefono">Número Principal</label>
+            <input type="text" id="telefono" name="telefono" maxlength="12" pattern="\+\d{11}" placeholder="+569XXXXXXXX" required>
+            <span class="error" id="errorTelefono"></span>
+
+            <label for="correo">Correo Electrónico</label>
+            <input type="text" id="correo" name="correo" required>
+            <span class="error" id="errorCorreo"></span>
+
+            <p>Fecha: <span id="fechaConfirmacion"></span></p>
+            <p>Horario: <span id="horarioConfirmacion"></span></p>
+            <p>Consulta: <span id="consultaConfirmacion"></span></p>
+            <p>Lugar: <span id="lugarConfirmacion"></span></p>
+
+            <button type="button" id="confirmar" onclick="confirmarReserva()" disabled>Confirmar</button>
+            <div id="mensaje"></div>
+        </form>
+    </main>
+
+    <footer>
+        <a href="Horario.html">Volver a Elegir Día y Hora</a>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var fecha = localStorage.getItem('fechaSeleccionada');
+            var horario = localStorage.getItem('horarioSeleccionado');
+            var consulta = localStorage.getItem('consultaSeleccionada');
+            var lugar = localStorage.getItem('regionSeleccionada');
+            var correo = localStorage.getItem('currentUserEmail');
+
+            if (fecha) {
+                var fechaParts = fecha.split('-');
+                fecha = `${fechaParts[2]}/${fechaParts[1]}/${fechaParts[0]}`;
+            }
+
+            document.getElementById('fechaConfirmacion').textContent = fecha || 'No se ha seleccionado una fecha';
+            document.getElementById('horarioConfirmacion').textContent = horario || 'No se ha seleccionado un horario';
+            document.getElementById('consultaConfirmacion').textContent = consulta || 'No se ha seleccionado una consulta';
+            document.getElementById('lugarConfirmacion').textContent = lugar || 'No se ha seleccionado un lugar';
+            document.getElementById('correo').value = correo || '';
+        });
+
+        function validarTelefono() {
+            var telefonoInput = document.getElementById("telefono");
+            var telefono = telefonoInput.value;
+
+            if (!telefono.match(/^\+\d{11}$/)) {
+                document.getElementById("errorTelefono").innerText = "Por favor ingrese un número válido (+569XXXXXXXX).";
+                telefonoInput.focus();
+                return false;
+            } else {
+                document.getElementById("errorTelefono").innerText = "";
+                return true;
+            }
+        }
+
+        function validarCorreo() {
+            var correoInput = document.getElementById("correo");
+            var correo = correoInput.value;
+
+            if (!correo.match(/\S+@\S+\.\S+/)) {
+                document.getElementById("errorCorreo").innerText = "Por favor ingrese un correo electrónico válido.";
+                correoInput.focus();
+                return false;
+            } else {
+                document.getElementById("errorCorreo").innerText = "";
+                return true;
+            }
+        }
+
+        function validarCampos() {
+            var telefonoValido = validarTelefono();
+            var correoValido = validarCorreo();
+            return telefonoValido && correoValido;
+        }
+
+        function confirmarReserva() {
+            if (validarCampos()) {
+                document.getElementById("mensaje").innerText = "¡Hora de consulta médica reservada de forma exitosa!";
+                document.getElementById("confirmar").disabled = true;
+            }
+        }
+
+        document.getElementById("telefono").addEventListener("input", function() {
+            if (validarCampos()) {
+                document.getElementById("confirmar").disabled = false;
+            } else {
+                document.getElementById("confirmar").disabled = true;
+            }
+        });
+
+        document.getElementById("correo").addEventListener("input", function() {
+            if (validarCampos()) {
+                document.getElementById("confirmar").disabled = false;
+            } else {
+                document.getElementById("confirmar").disabled = true;
+            }
+        });
+    </script>
+</body>
+</html>

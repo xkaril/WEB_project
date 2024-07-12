@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración</title>
+    <link rel="stylesheet" href="styles_configuracion.css">
+</head>
+<body>
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Volver</a>
+    <div class="container">
+        <h1>Configuración</h1>
+        <div class="option">
+            <label for="fontSize">Tamaño de letra:</label>
+            <select id="fontSize">
+                <option value="small">Pequeño</option>
+                <option value="medium" selected>Mediano</option>
+                <option value="large">Grande</option>
+            </select>
+        </div>
+        <div class="option">
+            <label for="notifications">Notificaciones:</label>
+            <button id="notificationSettingsBtn" onclick="openNotificationSettings()">Configurar Notificaciones</button>
+        </div>
+        <div class="option">
+            <label for="changePassword">Cambiar Contraseña:</label>
+            <button id="changePasswordBtn" onclick="openChangePasswordWindow()">Cambiar Contraseña</button>
+        </div>
+        <div class="option">
+            <label for="privacySettings">Privacidad:</label>
+            <button id="privacySettingsBtn" onclick="openPrivacySettings()">Configurar Privacidad</button>
+        </div>
+        <div class="option">
+            <label for="changeUsername">Cambiar Nombre de Usuario:</label>
+            <button id="changeUsernameBtn" onclick="openChangeUsernameWindow()">Cambiar Nombre de Usuario</button>
+        </div>
+        <button id="applyBtn">Aplicar</button>
+    </div>
+
+    
+    <script src="configuracion.js"></script>
+</body>
+</html>

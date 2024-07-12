@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compra de Bonos de Salud</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #0400ff9a;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        header a {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .bono-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .bono {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px;
+            width: 300px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html">&#8592; Volver al inicio</a>
+        <h1>Compra de Bonos de Salud</h1>
+    </header>
+
+    <main>
+        <section class="bono-list">
+            <div class="bono">
+                <h2>Bono PAD</h2>
+                <p>Cubre servicios asociados a un diagnóstico específico.</p>
+                <button onclick="comprarBono('PAD')">Comprar</button>
+            </div>
+            <div class="bono">
+                <h2>Bono Fonasa</h2>
+                <p>Acceso a prestaciones de salud según tramo de afiliación.</p>
+                <button onclick="comprarBono('Fonasa')">Comprar</button>
+            </div>
+            <div class="bono">
+                <h2>Bono Isapre</h2>
+                <p>Cubre servicios según plan de salud contratado en Isapre.</p>
+                <button onclick="comprarBono('Isapre')">Comprar</button>
+            </div>
+            <div class="bono">
+                <h2>Bono APS</h2>
+                <p>Atención primaria de salud en centros de salud familiar.</p>
+                <button onclick="comprarBono('APS')">Comprar</button>
+            </div>
+            <div class="bono">
+                <h2>Bono AUGE/GES</h2>
+                <p>Prestaciones garantizadas para enfermedades específicas.</p>
+                <button onclick="comprarBono('AUGE/GES')">Comprar</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Para más información, contacte con nuestro servicio de atención al cliente.</p>
+        <p>Email: contacto@life.cl | Teléfono: +56 2 1234 5678</p>
+    </footer>
+
+    <script>
+        function comprarBono(tipo) {
+            window.location.href = "pago.html?tipo=" + tipo;
+        }
+    </script>
+</body>
+</html>

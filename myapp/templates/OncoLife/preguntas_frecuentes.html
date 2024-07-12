@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preguntas Frecuentes - Reserva de Citas Médicas</title>
+    <link rel="stylesheet" href="Reserva_Cita.css">
+    <style>
+        .faq {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #0400ff7e;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+        }
+
+
+        .faq h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+        }
+
+        .faq-item h3 {
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .faq-item p {
+            display: none;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="encabezado">
+        <div class="topnav">
+            <span class="titulo">Preguntas Frecuentes</span>
+        </div>
+    </header>
+    <a href="index.html" class="back-link">&#8592; Volver al Inicio</a>
+
+    <main class="faq">
+        <h2>Preguntas Frecuentes</h2>
+        <div class="faq-item">
+            <h3>¿Cómo puedo reservar una cita médica?</h3>
+            <p>Para reservar una cita médica, seleccione la especialidad deseada, elija una fecha y horario disponible, y complete el formulario de confirmación con su información personal.</p>
+        </div>
+        <div class="faq-item">
+            <h3>¿Puedo cancelar o modificar una cita?</h3>
+            <p>Sí, puede cancelar o modificar una cita iniciando sesión en su cuenta y yendo a la sección de "Mis Citas". Desde allí, podrá cancelar o reprogramar su cita según disponibilidad.</p>
+        </div>
+        <div class="faq-item">
+            <h3>¿Qué debo hacer si no recibo un correo de confirmación?</h3>
+            <p>Si no recibe un correo de confirmación, verifique su carpeta de spam o correo no deseado. Si el correo no está allí, comuníquese con nuestro soporte técnico para asistencia.</p>
+        </div>
+        <div class="faq-item">
+            <h3>¿Qué información necesito para reservar una cita?</h3>
+            <p>Para reservar una cita, necesitará proporcionar su nombre completo, número de teléfono, y dirección de correo electrónico. También deberá seleccionar la fecha y hora de la cita y la especialidad médica requerida.</p>
+        </div>
+        <div class="faq-item">
+            <h3>¿Cómo puedo contactar al soporte técnico?</h3>
+            <p>Puede contactar al soporte técnico a través del formulario de contacto en nuestro sitio web o llamando a nuestro número de atención al cliente que se encuentra en la sección "Contacto".</p>
+        </div>
+    </main>
+
+   
+
+    <script>
+        document.querySelectorAll('.faq-item h3').forEach(item => {
+            item.addEventListener('click', () => {
+                const answer = item.nextElementSibling;
+                if (answer.style.display === 'none' || answer.style.display === '') {
+                    answer.style.display = 'block';
+                } else {
+                    answer.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

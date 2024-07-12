@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - OncLife</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'OncLife/css/index.css' %}">
+</head>
+<body>
+    <div class="topnav">
+        <a class="active" href="#home">Inicio</a>
+        <a href="{% url 'reservar_cita' %}">Reservar Cita</a>
+        <a href="{% url 'preguntas_frecuentes' %}">Preguntas Frecuentes</a>
+        <a href="{% url 'calendario' %}">Calendario</a>
+        <a href="{% url 'compra_bonos' %}">Compra de Bonos</a>
+        <a href="{% url 'medicamentos' %}">Medicamentos</a>
+        <a href="{% url 'ingreso_pagos' %}">Ingreso de Pagos</a>
+        <a href="{% url 'configuraciones' %}">Configuraciones</a>
+        <a href="{% url 'login' %}">Cerrar Sesión</a>
+    </div>
+    <h1>Onc-Life</h1>
+    <footer>
+        <p>&copy; 2024 Reserva de Citas Médicas</p>
+    </footer>
+</body>
+</html>

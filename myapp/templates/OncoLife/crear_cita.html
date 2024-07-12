@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crear Cita</title>
+</head>
+<body>
+    <h2>Crear Cita</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Crear</button>
+    </form>
+    <a href="{% url 'citas' %}">Volver a Citas</a>
+</body>
+</html>

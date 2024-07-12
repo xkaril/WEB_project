@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración de Notificaciones</title>
+    <link rel="stylesheet" href="configuracion.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Configuración de Notificaciones</h1>
+        <div class="option">
+            <label for="emailNotifications">Notificaciones por Email:</label>
+            <select id="emailNotifications">
+                <option value="yes" selected>Sí</option>
+                <option value="no">No</option>
+            </select>
+        </div>
+        <div class="option">
+            <label for="smsNotifications">Notificaciones por SMS:</label>
+            <select id="smsNotifications">
+                <option value="yes">Sí</option>
+                <option value="no" selected>No</option>
+            </select>
+        </div>
+        <button id="applyNotificationBtn">Aplicar</button>
+    </div>
+
+    <script>
+        document.getElementById('applyNotificationBtn').addEventListener('click', () => {
+            const emailNotifications = document.getElementById('emailNotifications').value;
+            const smsNotifications = document.getElementById('smsNotifications').value;
+            alert(`Configuraciones de notificaciones aplicadas:\nNotificaciones por Email: ${emailNotifications}\nNotificaciones por SMS: ${smsNotifications}`);
+            window.close();
+        });
+    </script>
+</body>
+</html>

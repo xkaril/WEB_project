@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Pago</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f3f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        h2 {
+            color: #008cba;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: calc(100% - 20px);
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            background-color: #008cba;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #005f6b;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 5px;
+        }
+
+        #total-container {
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }
+
+        .back-link {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .back-link a {
+            text-decoration: none;
+            color: #008cba;
+            display: flex;
+            align-items: center;
+        }
+
+        .back-link a i {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="back-link">
+            <a href="8.Medicamentos.html"><i class="fas fa-arrow-left"></i>Volver a Medicamentos</a>
+        </div>
+        <h2>Completa tu Pedido</h2>
+        <form id="pago-form" action="confirmacion_pago.html" method="get" onsubmit="return validarFormulario()">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+            <label for="apellido">Apellido:</label>
+            <input type="text" id="apellido" name="apellido" required>
+            <label for="tarjeta">Número de Tarjeta:</label>
+            <input type="text" id="tarjeta" name="tarjeta" maxlength="16" required>
+            <label for="vencimiento">Fecha de Vencimiento (MM/YY):</label>
+            <input type="text" id="vencimiento" name="vencimiento" placeholder="MM/YY" maxlength="5" required>
+            <label for="ccv">CCV (000):</label>
+            <input type="text" id="ccv" name="ccv" maxlength="3" required>
+            <input type="submit" value="Pagar">
+        </form>
+        <div id="error-message" class="error-message"></div>
+        <div id="total-container">
+            <label for="total">Total a Pagar:</label>
+            <span id="total"></span>
+        </div>
+    </div>
+    
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script>
+        document.getElementById('vencimiento').addEventListener('input', function(event) {
+            const input = event.target.value;
+            if (input.length === 2 && !input.includes('/')) {
+                event.target.value = input + '/';
+            }
+        });
+
+        function validarFormulario() {
+            const nombre = document.getElementById('nombre').value;
+            const apellido = document.getElementById('apellido').value;
+            const tarjeta = document.getElementById('tarjeta').value;
+            const vencimiento = document.getElementById('vencimiento').value;
+            const ccv = document.getElementById('ccv').value;
+            const errorMensaje = document.getElementById('error-message');
+            
+            if (nombre.trim() === '') {
+                errorMensaje.textContent = 'Por favor ingresa tu nombre.';
+                return false;
+            }
+
+            if (apellido.trim() === '') {
+                errorMensaje.textContent = 'Por favor ingresa tu apellido.';
+                return false;
+            }
+
+            if (tarjeta.trim() === '' || !tarjeta.match(/^\d{16}$/)) {
+                errorMensaje.textContent = 'Por favor ingresa un número de tarjeta válido.';
+                return false;
+            }
+
+            if (vencimiento.trim() === '' || !vencimiento.match(/^\d{2}\/\d{2}$/)) {
+                errorMensaje.textContent = 'Por favor ingresa una fecha de vencimiento válida (MM/YY).';
+                return false;
+            }
+
+            if (vencimiento === '00/00') {
+                errorMensaje.textContent = 'Por favor ingresa una fecha de vencimiento válida (MM/YY).';
+                return false;
+            }
+
+            if (ccv.trim() === '' || !ccv.match(/^\d{3}$/) || ccv === '000') {
+                errorMensaje.textContent = 'Por favor ingresa un CCV válido.';
+                return false;
+            }
+
+            return true;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            const medicamento = params.get('medicamento');
+            const cantidad = parseInt(params.get('cantidad'));
+            const precio = parseFloat(params.get('precio'));
+            const total = cantidad * precio;
+            document.getElementById('total').textContent = `Total a pagar: $${total.toFixed(2)}`;
+        });
+    </script>
+</body>
+</html>

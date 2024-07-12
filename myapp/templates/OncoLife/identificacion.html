@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identificación del Paciente - Reserva de Citas Médicas</title>
+    <link rel="stylesheet" href="Reserva_Cita.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        #tipo-documento {
+            width: 200px;
+            padding: 8px;
+        }
+
+        .volver-inicio {
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+        }
+
+        .volver-inicio:hover {
+            color:#0400ff2f;
+        }
+    </style>
+    <script src="scripts.js" defer></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const rutInput = document.getElementById('rut');
+            rutInput.addEventListener('input', (event) => {
+                let valor = event.target.value.replace(/\D/g, '');
+                valor = valor.replace(/^(\d{1,2})(\d{3})(\d{3})(\w{0,1})$/, '$1.$2.$3-$4');
+                event.target.value = valor;
+            });
+        });
+
+        function validarRut() {
+            const rut = document.getElementById('rut').value;
+            if (rut === '') {
+                alert("Por favor ingrese un RUT válido.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <header class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Identificación del Paciente</a>
+    </header>
+    <a href="index.html" class="back-link">&#8592; Volver al inicio</a>
+
+    <div class="container mt-5">
+        <h2>Identificación del Paciente</h2>
+        <form action="servicios.html" method="GET" onsubmit="return validarRut()">
+            <div class="form-group">
+                <label for="tipo-documento">Tipo de Documento:</label>
+                <select id="tipo-documento" name="tipo-documento" class="form-control">
+                    <option value="carnet">Carnet de Identidad</option>
+                    <option value="pasaporte">Pasaporte</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="rut">RUT del Paciente:</label>
+                <input type="text" id="rut" name="rut" class="form-control" placeholder="Ej: 8.765.458-8" required maxlength="12">
+            </div>
+            <button type="submit" class="btn btn-primary">Continuar</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
